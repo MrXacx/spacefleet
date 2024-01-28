@@ -20,6 +20,7 @@ public class Spaceship {
     private UUID id;
     private String model;
     private String name;
+    private String manufacter;
     @Unsigned private Long cost;
     private Double length;
     @Unsigned  private Long crew;
