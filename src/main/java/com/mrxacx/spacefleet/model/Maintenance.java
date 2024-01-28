@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @AllArgsConstructor
 @Builder
 @Data
@@ -15,7 +17,7 @@ import lombok.NoArgsConstructor;
 public class Maintenance {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    private UUID id;
     @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Spaceship spaceship;
     @Unsigned private Float correctionPercentage;
