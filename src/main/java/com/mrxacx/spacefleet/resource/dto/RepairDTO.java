@@ -1,4 +1,4 @@
-package com.mrxacx.spacefleet.dtos;
+package com.mrxacx.spacefleet.resource.dto;
 
 import lombok.*;
 
