@@ -14,10 +14,7 @@ import java.util.UUID;
 @Data
 @Entity
 @NoArgsConstructor
-public class Spaceship {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+public class Spaceship extends IModel{
     private String model;
     private String name;
     private String manufacter;

@@ -15,10 +15,7 @@ import java.util.UUID;
 @Data
 @Entity
 @NoArgsConstructor
-public class Repair {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+public class Repair extends IModel {
     @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Spaceship spaceship;
     private String fault;

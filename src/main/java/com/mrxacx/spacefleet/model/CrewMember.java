@@ -16,9 +16,6 @@ import java.util.UUID;
 @Data
 @Entity
 @NoArgsConstructor
-public class CrewMember {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+public class CrewMember extends IModel {
     private String name;
 }

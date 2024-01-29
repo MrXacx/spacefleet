@@ -14,10 +14,7 @@ import java.util.UUID;
 @Data
 @Entity
 @NoArgsConstructor
-public class Maintenance {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+public class Maintenance extends IModel {
     @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Spaceship spaceship;
     @Unsigned private Float correctionPercentage;

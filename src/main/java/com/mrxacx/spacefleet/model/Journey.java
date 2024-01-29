@@ -15,10 +15,7 @@ import java.util.UUID;
 @Data
 @Entity
 @NoArgsConstructor
-public class Journey {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+public class Journey extends IModel {
     @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Spaceship spaceship;
     private Date date;
