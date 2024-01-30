@@ -1,5 +1,6 @@
 package com.mrxacx.spacefleet.service;
 
+import com.mrxacx.spacefleet.controller.dto.IModelDTO;
 import com.mrxacx.spacefleet.exception.UnexpectedHttpResponseException;
 import com.mrxacx.spacefleet.model.IModel;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +22,7 @@ public abstract class HttpClientService {
   
   protected abstract IModel getModel(String path, Class<? extends IModel> modelClass);
   
-  protected abstract List<? extends IModel> getModelList(String path, Class<? extends IModel> modelClass);
+  protected abstract List<? extends IModelDTO> getModelList(String path, Class<? extends IModelDTO> modelDTOClass);
   
   protected void catchUnsucessfulRequest(ResponseEntity<?> response) {
     if (!response.getStatusCode().is2xxSuccessful()) { // If the HTTP status code be different of 2XX
