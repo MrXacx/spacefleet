@@ -1,8 +1,6 @@
 package com.mrxacx.spacefleet.model;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import jdk.jfr.Unsigned;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,13 +8,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.UUID;
 
 @AllArgsConstructor
 @Builder
 @Data
 @Entity
 @NoArgsConstructor
-public class Spaceship extends IModel {
+public class Spaceship implements IModel {
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  protected UUID id;
   private String model;
   private String name;
   private String manufacter;

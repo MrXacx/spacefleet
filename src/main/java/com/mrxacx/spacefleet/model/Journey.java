@@ -8,13 +8,17 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @AllArgsConstructor
 @Builder
 @Data
 @Entity
 @NoArgsConstructor
-public class Journey extends IModel {
+public class Journey implements IModel {
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  protected UUID id;
   @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private Spaceship spaceship;
   private Date date;
