@@ -9,86 +9,86 @@ import com.mrxacx.spacefleet.repository.IRepairRepository;
 import com.mrxacx.spacefleet.repository.ISpaceshipRepository;
 import com.mrxacx.spacefleet.service.ISpaceshipService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * @author ariel
+ * @since 1.0
+ */
 @Service
 @RequiredArgsConstructor
 public class SpaceshipService implements ISpaceshipService {
-
+    
     private ISpaceshipRepository spaceshipRepository;
     private IMaintenanceRepository maintenanceRepository;
     private IRepairRepository repairRepository;
-
+    
     @Override
     public Spaceship recordSpaceship(String model) {
-        return null;
+        final Spaceship spaceship = new SWAPIClientService().fetchSpaceship(model);
+        return spaceshipRepository.save(spaceship);
     }
-
+    
     @Override
     public Spaceship fetchSpaceship(String spaceshipId) {
         return spaceshipRepository
-                .findById(UUID.fromString(spaceshipId))
-                .orElseThrow();
+            .findById(UUID.fromString(spaceshipId))
+            .orElseThrow();
     }
-
+    
     @Override
     public List<Spaceship> fetchSpaceshipsForName(String name) {
-        return spaceshipRepository
-                .findAll((Spaceship sp) -> sp.getName().equals(name));
+        return spaceshipRepository.findByName(name);
     }
-
+    
     @Override
     public List<Spaceship> fetchSpaceshipsForModel(String model) {
-        return spaceshipRepository
-                .findAll((Spaceship sp) -> sp.getModel().equals(model));
+        return spaceshipRepository.findByModel(model);
     }
-
+    
     @Override
-    public List<Spaceship> fetchSpaceshipsForManufacter(String manufacter) {
-        return spaceshipRepository
-                .findAll((Spaceship sp) -> sp.getManufacter().equals(manufacter));
+    public List<Spaceship> fetchSpaceshipsForManufacter(String manufacturer) {
+        return spaceshipRepository.findByManufacter(manufacturer);
     }
-
+    
     @Override
     public Repair recordSpaceshipRepair(RepairDTO repairDTO) {
-        final Spaceship spaceship = retrieveSpaceship(repairDTO.getSpaceshipId());
-
         return repairRepository
-                .save(
-                        Repair.builder()
-                                .spaceship(spaceship)
-                                .fault(repairDTO.getFault())
-                                .build()
-                );
+            .save(
+                Repair.builder()
+                    .spaceship(fetchSpaceship(repairDTO.getSpaceshipId()))
+                    .fault(repairDTO.getFault())
+                    .build()
+            );
     }
-
+    
     @Override
     public Repair fetchSpaceshipRepair(String repairId) {
         return repairRepository
-                .findById(UUID.fromString(repairId))
-                .orElseThrow();
+            .findById(UUID.fromString(repairId))
+            .orElseThrow();
     }
-
+    
     @Override
     public Repair finishSpaceshipRepair(String repairId) {
-        Repair repair = retrieveSpaceshipRepair(repairId);
+        Repair repair = fetchSpaceshipRepair(repairId);
         repair.setFinished(true);
         return repairRepository.save(repair);
     }
-
+    
     @Override
     public Maintenance recordSpaceshipMaintenance(String spaceshipId) {
-        final Spaceship spaceship = retrieveSpaceship(spaceshipId);
-
         return maintenanceRepository
-                .save(
-                        Maintenance
-                                .builder()
-                                .spaceship(spaceship)
-                                .build()
-                );
+            .save(
+                Maintenance
+                    .builder()
+                    .spaceship(fetchSpaceship(spaceshipId))
+                    .build()
+            );
     }
 }
