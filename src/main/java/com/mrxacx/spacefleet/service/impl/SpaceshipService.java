@@ -1,12 +1,13 @@
 package com.mrxacx.spacefleet.service.impl;
 
+import com.mrxacx.spacefleet.exception.UnexpectedDBResponseException;
 import com.mrxacx.spacefleet.model.Maintenance;
 import com.mrxacx.spacefleet.model.Repair;
 import com.mrxacx.spacefleet.model.Spaceship;
 import com.mrxacx.spacefleet.repository.IMaintenanceRepository;
 import com.mrxacx.spacefleet.repository.IRepairRepository;
 import com.mrxacx.spacefleet.repository.ISpaceshipRepository;
-import com.mrxacx.spacefleet.resource.dto.RepairDTO;
+import com.mrxacx.spacefleet.controller.dto.RepairDTO;
 import com.mrxacx.spacefleet.service.ISpaceshipService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,9 +23,9 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class SpaceshipService implements ISpaceshipService {
   
-  private ISpaceshipRepository spaceshipRepository;
-  private IMaintenanceRepository maintenanceRepository;
-  private IRepairRepository repairRepository;
+  final private ISpaceshipRepository spaceshipRepository;
+  final private IMaintenanceRepository maintenanceRepository;
+  final private IRepairRepository repairRepository;
   
   @Override
   public Spaceship recordSpaceship(String model) {
@@ -33,10 +34,10 @@ public class SpaceshipService implements ISpaceshipService {
   }
   
   @Override
-  public Spaceship fetchSpaceship(String spaceshipId) {
+  public Spaceship fetchSpaceship(UUID spaceshipId) {
     return spaceshipRepository
-        .findById(UUID.fromString(spaceshipId))
-        .orElseThrow();
+        .findById(spaceshipId)
+        .orElseThrow() ;
   }
   
   @Override
@@ -50,8 +51,8 @@ public class SpaceshipService implements ISpaceshipService {
   }
   
   @Override
-  public List<Spaceship> fetchSpaceshipsForManufacter(String manufacturer) {
-    return spaceshipRepository.findByManufacter(manufacturer);
+  public List<Spaceship> fetchSpaceshipsForManufacturer(String manufacturer) {
+    return spaceshipRepository.findByManufacturer(manufacturer);
   }
   
   @Override
@@ -66,21 +67,21 @@ public class SpaceshipService implements ISpaceshipService {
   }
   
   @Override
-  public Repair fetchSpaceshipRepair(String repairId) {
+  public Repair fetchSpaceshipRepair(UUID repairId) {
     return repairRepository
-        .findById(UUID.fromString(repairId))
+        .findById(repairId)
         .orElseThrow();
   }
   
   @Override
-  public Repair finishSpaceshipRepair(String repairId) {
+  public Repair finishSpaceshipRepair(UUID repairId) {
     Repair repair = fetchSpaceshipRepair(repairId);
     repair.setFinished(true);
     return repairRepository.save(repair);
   }
   
   @Override
-  public Maintenance recordSpaceshipMaintenance(String spaceshipId) {
+  public Maintenance recordSpaceshipMaintenance(UUID spaceshipId) {
     return maintenanceRepository
         .save(
             Maintenance
