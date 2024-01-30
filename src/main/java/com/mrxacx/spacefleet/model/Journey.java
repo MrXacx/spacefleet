@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @AllArgsConstructor
 @Builder
@@ -16,11 +15,11 @@ import java.util.UUID;
 @Entity
 @NoArgsConstructor
 public class Journey extends IModel {
-    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Spaceship spaceship;
-    private Date date;
-    private Date duration;
-    @ManyToMany
-    private List<CrewMember> crew;
-    private String goal;
+  @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private Spaceship spaceship;
+  private Date date;
+  private Date duration;
+  @ManyToMany
+  private List<CrewMember> crew;
+  private String goal;
 }

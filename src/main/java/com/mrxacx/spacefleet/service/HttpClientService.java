@@ -19,12 +19,13 @@ public abstract class HttpClientService {
   final protected RestTemplate api;
   final protected String uri;
   
-  protected abstract IModel getModel(String path, Class<? extends  IModel> modelClass);
-  protected abstract List<? extends IModel> getModelList(String path, Class<? extends  IModel> modelClass);
+  protected abstract IModel getModel(String path, Class<? extends IModel> modelClass);
   
-  protected void catchUnsucessfulRequest(ResponseEntity<?> response){
-    if (!response.getStatusCode().is2xxSuccessful()){ // If the HTTP status code be different of 2XX
-      throw new UnexpectedHttpResponseException("Falha na pesquisa: "+ response.toString());
+  protected abstract List<? extends IModel> getModelList(String path, Class<? extends IModel> modelClass);
+  
+  protected void catchUnsucessfulRequest(ResponseEntity<?> response) {
+    if (!response.getStatusCode().is2xxSuccessful()) { // If the HTTP status code be different of 2XX
+      throw new UnexpectedHttpResponseException("Falha na pesquisa: " + response.toString());
     }
   }
 }

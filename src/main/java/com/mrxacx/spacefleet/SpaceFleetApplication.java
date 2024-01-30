@@ -5,9 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class SpaceFleetApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(SpaceFleetApplication.class, args);
-	}
-
+  
+  public static void main(String[] args) {
+    SpringApplication.run(SpaceFleetApplication.class, args);
+  }
+  
 }

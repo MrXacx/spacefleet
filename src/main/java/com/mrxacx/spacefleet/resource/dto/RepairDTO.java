@@ -1,12 +1,15 @@
 package com.mrxacx.spacefleet.resource.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @Builder
 @Data
 @NoArgsConstructor
 public class RepairDTO {
-    private String spaceshipId;
-    private String fault;
+  private String spaceshipId;
+  private String fault;
 }
