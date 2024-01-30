@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,7 +22,7 @@ public class Spaceship implements IModel {
   protected UUID id;
   private String model;
   private String name;
-  private String manufacter;
+  private String manufacturer;
   @Unsigned
   private Long cost;
   private Double length;
@@ -34,9 +35,12 @@ public class Spaceship implements IModel {
   @Unsigned
   private Float hyperdriveRating;
   @OneToMany(cascade = CascadeType.ALL)
-  private List<Journey> journeys;
+  @Builder.Default
+  private List<Journey> journeys = new ArrayList<>();
   @OneToMany(cascade = CascadeType.ALL)
-  private List<Maintenance> maintenances;
+  @Builder.Default
+  private List<Maintenance> maintenances = new ArrayList<>();
   @OneToMany(cascade = CascadeType.ALL)
-  private List<Repair> repairs;
+  @Builder.Default
+  private List<Repair> repairs = new ArrayList<>();
 }

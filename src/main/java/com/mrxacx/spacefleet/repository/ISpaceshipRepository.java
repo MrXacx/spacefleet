@@ -11,5 +11,5 @@ public interface ISpaceshipRepository extends JpaRepository<Spaceship, UUID> {
   
   List<Spaceship> findByModel(String model);
   
-  List<Spaceship> findByManufacter(String manufacter);
+  List<Spaceship> findByManufacturer(String manufacturer);
 }
