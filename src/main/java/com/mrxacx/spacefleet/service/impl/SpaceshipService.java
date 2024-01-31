@@ -57,11 +57,6 @@ public class SpaceshipService implements ISpaceshipService {
     return spaceshipRepository.findByManufacturer(manufacturer);
   }
   
-  /**
-   * @param spaceshipId
-   * @param spaceshipDTO
-   * @return
-   */
   @Override
   public Spaceship updateSpaceship(UUID spaceshipId, SpaceshipDTO spaceshipDTO) {
     Spaceship spaceship = fetchSpaceship(spaceshipId);
@@ -75,9 +70,6 @@ public class SpaceshipService implements ISpaceshipService {
     return spaceshipRepository.save(spaceship);
   }
   
-  /**
-   * @param spaceshipId
-   */
   @Override
   public void removeSpaceship(UUID spaceshipId) {
     spaceshipRepository.delete(
