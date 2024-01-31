@@ -39,7 +39,7 @@ public class SpaceshipService implements ISpaceshipService {
   public Spaceship fetchSpaceship(UUID spaceshipId) {
     return spaceshipRepository
         .findById(spaceshipId)
-        .orElseThrow() ;
+        .orElseThrow();
   }
   
   @Override
@@ -86,11 +86,15 @@ public class SpaceshipService implements ISpaceshipService {
   }
   
   @Override
-  public Repair recordSpaceshipRepair(UUID spaceshipId, RepairDTO repairDTO) {
+  public Repair recordSpaceshipRepair(RepairDTO repairDTO) {
     return repairRepository
         .save(
             Repair.builder()
-                .spaceship(fetchSpaceship(spaceshipId))
+                .spaceship(
+                    fetchSpaceship(
+                        repairDTO.getSpaceshipId()
+                    )
+                )
                 .fault(repairDTO.getFault())
                 .build()
         );
@@ -106,17 +110,27 @@ public class SpaceshipService implements ISpaceshipService {
   @Override
   public Repair finishSpaceshipRepair(UUID repairId) {
     Repair repair = fetchSpaceshipRepair(repairId);
+    if (repair.isFinished()) {
+      throw new RuntimeException(
+          String.format("O reparo %s já foi finalizado.", repairId.toString())
+      );
+    }
+    
     repair.setFinished(true);
     return repairRepository.save(repair);
   }
   
   @Override
-  public Maintenance recordSpaceshipMaintenance(UUID spaceshipId, MaintenanceDTO maintenanceDTO) {
+  public Maintenance recordSpaceshipMaintenance(MaintenanceDTO maintenanceDTO) {
     return maintenanceRepository
         .save(
             Maintenance
                 .builder()
-                .spaceship(fetchSpaceship(spaceshipId))
+                .spaceship(
+                    fetchSpaceship(
+                        maintenanceDTO.getSpaceshipId()
+                    )
+                )
                 .build()
         );
   }

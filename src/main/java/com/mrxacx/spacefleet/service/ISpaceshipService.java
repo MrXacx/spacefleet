@@ -35,7 +35,5 @@ public interface ISpaceshipService {
   
   Repair finishSpaceshipRepair(UUID repairId);
   
-  Maintenance recordSpaceshipMaintenance(UUID spaceshipId, MaintenanceDTO maintenanceDTO);
-  
-  
+  Maintenance recordSpaceshipMaintenance(MaintenanceDTO maintenanceDTO);
 }

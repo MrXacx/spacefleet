@@ -1,13 +1,16 @@
 package com.mrxacx.spacefleet.controller;
 
 import com.mrxacx.spacefleet.controller.dto.impl.MaintenanceDTO;
+import com.mrxacx.spacefleet.controller.dto.impl.RepairDTO;
 import com.mrxacx.spacefleet.controller.dto.impl.SpaceshipDTO;
 import com.mrxacx.spacefleet.enumerate.SearchSpaceshipParam;
 import com.mrxacx.spacefleet.model.Maintenance;
+import com.mrxacx.spacefleet.model.Repair;
 import com.mrxacx.spacefleet.model.Spaceship;
 import com.mrxacx.spacefleet.service.impl.SpaceshipService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -68,8 +71,18 @@ public class SpaceshipController {
     spaceshipService.removeSpaceship(UUID.fromString(spaceship));
   }
   
-  @PostMapping("/{id}/maintenance")
-  public Maintenance recordMaintenance(@PathVariable("id") String spaceship, @RequestBody MaintenanceDTO maintenanceDTO) {
-    return spaceshipService.recordSpaceshipMaintenance(UUID.fromString(spaceship), maintenanceDTO);
+  @PostMapping("/maintenance")
+  public Maintenance recordMaintenance(@RequestBody MaintenanceDTO maintenanceDTO) {
+    return spaceshipService.recordSpaceshipMaintenance(maintenanceDTO);
+  }
+  
+  @PostMapping("/repair")
+  public Repair recordRepair(@RequestBody RepairDTO repairDTO) {
+    return spaceshipService.recordSpaceshipRepair(repairDTO);
+  }
+  
+  @PatchMapping("/repair")
+  public Repair finishRepair(@RequestBody RepairDTO repairDTO) {
+    return spaceshipService.finishSpaceshipRepair(repairDTO.getId());
   }
 }
