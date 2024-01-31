@@ -3,7 +3,7 @@ package com.mrxacx.spacefleet.service.impl;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mrxacx.spacefleet.controller.dto.IModelDTO;
-import com.mrxacx.spacefleet.controller.dto.SpaceshipDTO;
+import com.mrxacx.spacefleet.controller.dto.impl.SpaceshipDTO;
 import com.mrxacx.spacefleet.exception.ManyFoundItemsHttpException;
 import com.mrxacx.spacefleet.exception.NotFoundItemHttpException;
 import com.mrxacx.spacefleet.exception.UnexpectedHttpResponseException;

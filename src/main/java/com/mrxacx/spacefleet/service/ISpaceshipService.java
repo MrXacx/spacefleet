@@ -3,7 +3,7 @@ package com.mrxacx.spacefleet.service;
 import com.mrxacx.spacefleet.model.Maintenance;
 import com.mrxacx.spacefleet.model.Repair;
 import com.mrxacx.spacefleet.model.Spaceship;
-import com.mrxacx.spacefleet.controller.dto.RepairDTO;
+import com.mrxacx.spacefleet.controller.dto.impl.RepairDTO;
 
 import java.util.List;
 import java.util.UUID;

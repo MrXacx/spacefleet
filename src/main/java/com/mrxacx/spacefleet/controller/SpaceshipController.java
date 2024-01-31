@@ -1,6 +1,7 @@
 package com.mrxacx.spacefleet.controller;
 
-import com.mrxacx.spacefleet.controller.dto.SpaceshipDTO;
+import com.mrxacx.spacefleet.controller.dto.impl.SpaceshipDTO;
+import com.mrxacx.spacefleet.enumerate.SearchSpaceshipParam;
 import com.mrxacx.spacefleet.model.Spaceship;
 import com.mrxacx.spacefleet.service.impl.SpaceshipService;
 import lombok.RequiredArgsConstructor;

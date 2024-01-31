@@ -7,7 +7,7 @@ import com.mrxacx.spacefleet.model.Spaceship;
 import com.mrxacx.spacefleet.repository.IMaintenanceRepository;
 import com.mrxacx.spacefleet.repository.IRepairRepository;
 import com.mrxacx.spacefleet.repository.ISpaceshipRepository;
-import com.mrxacx.spacefleet.controller.dto.RepairDTO;
+import com.mrxacx.spacefleet.controller.dto.impl.RepairDTO;
 import com.mrxacx.spacefleet.service.ISpaceshipService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

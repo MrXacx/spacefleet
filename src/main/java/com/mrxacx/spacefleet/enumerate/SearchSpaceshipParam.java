@@ -1,2 +1,5 @@
-package com.mrxacx.spacefleet.enumerate;public enum SearchParam {
+package com.mrxacx.spacefleet.enumerate;
+
+public enum SearchSpaceshipParam {
+  NAME, MANUFACTURER, MODEL
 }
