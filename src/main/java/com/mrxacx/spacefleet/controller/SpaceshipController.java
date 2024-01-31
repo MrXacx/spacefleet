@@ -1,7 +1,9 @@
 package com.mrxacx.spacefleet.controller;
 
+import com.mrxacx.spacefleet.controller.dto.impl.MaintenanceDTO;
 import com.mrxacx.spacefleet.controller.dto.impl.SpaceshipDTO;
 import com.mrxacx.spacefleet.enumerate.SearchSpaceshipParam;
+import com.mrxacx.spacefleet.model.Maintenance;
 import com.mrxacx.spacefleet.model.Spaceship;
 import com.mrxacx.spacefleet.service.impl.SpaceshipService;
 import lombok.RequiredArgsConstructor;
@@ -64,5 +66,10 @@ public class SpaceshipController {
   @DeleteMapping("/{id}")
   public void removeSpaceship(@PathVariable("id") String spaceship) {
     spaceshipService.removeSpaceship(UUID.fromString(spaceship));
+  }
+  
+  @PostMapping("/{id}/maintenance")
+  public Maintenance recordMaintenance(@PathVariable("id") String spaceship, @RequestBody MaintenanceDTO maintenanceDTO) {
+    return spaceshipService.recordSpaceshipMaintenance(UUID.fromString(spaceship), maintenanceDTO);
   }
 }

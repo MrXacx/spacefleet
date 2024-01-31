@@ -1,5 +1,6 @@
 package com.mrxacx.spacefleet.service.impl;
 
+import com.mrxacx.spacefleet.controller.dto.impl.MaintenanceDTO;
 import com.mrxacx.spacefleet.controller.dto.impl.RepairDTO;
 import com.mrxacx.spacefleet.controller.dto.impl.SpaceshipDTO;
 import com.mrxacx.spacefleet.exception.UnexpectedDBResponseException;
@@ -85,11 +86,11 @@ public class SpaceshipService implements ISpaceshipService {
   }
   
   @Override
-  public Repair recordSpaceshipRepair(RepairDTO repairDTO) {
+  public Repair recordSpaceshipRepair(UUID spaceshipId, RepairDTO repairDTO) {
     return repairRepository
         .save(
             Repair.builder()
-                .spaceship(fetchSpaceship(repairDTO.getSpaceshipId()))
+                .spaceship(fetchSpaceship(spaceshipId))
                 .fault(repairDTO.getFault())
                 .build()
         );
@@ -110,7 +111,7 @@ public class SpaceshipService implements ISpaceshipService {
   }
   
   @Override
-  public Maintenance recordSpaceshipMaintenance(UUID spaceshipId) {
+  public Maintenance recordSpaceshipMaintenance(UUID spaceshipId, MaintenanceDTO maintenanceDTO) {
     return maintenanceRepository
         .save(
             Maintenance

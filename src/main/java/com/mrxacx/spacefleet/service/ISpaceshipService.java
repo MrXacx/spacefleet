@@ -1,5 +1,6 @@
 package com.mrxacx.spacefleet.service;
 
+import com.mrxacx.spacefleet.controller.dto.impl.MaintenanceDTO;
 import com.mrxacx.spacefleet.controller.dto.impl.RepairDTO;
 import com.mrxacx.spacefleet.controller.dto.impl.SpaceshipDTO;
 import com.mrxacx.spacefleet.model.Maintenance;
@@ -34,7 +35,7 @@ public interface ISpaceshipService {
   
   Repair finishSpaceshipRepair(UUID repairId);
   
-  Maintenance recordSpaceshipMaintenance(UUID spaceshipId);
+  Maintenance recordSpaceshipMaintenance(UUID spaceshipId, MaintenanceDTO maintenanceDTO);
   
   
 }
