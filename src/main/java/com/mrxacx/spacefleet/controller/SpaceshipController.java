@@ -6,7 +6,7 @@ import com.mrxacx.spacefleet.model.Spaceship;
 import com.mrxacx.spacefleet.service.impl.SpaceshipService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
+import java.util.List;
 import java.util.UUID;
 
 @RequestMapping("/spaceship")
@@ -37,5 +37,22 @@ public class SpaceshipController {
       System.out.println(e.getMessage());
       return null;
     }
+  }
+  
+  @GetMapping("/search/{method}")
+  public List<Spaceship>  fetchSpaceships(@PathVariable("method") String searchParam, @RequestParam("w") String searchValue){
+    List<Spaceship> spaceships = null;
+    try {
+      switch (SearchSpaceshipParam.valueOf(searchParam.toUpperCase())){ // Select the correct search service
+        case NAME -> spaceships = spaceshipService.fetchSpaceshipsForName(searchValue);
+        case MANUFACTURER -> spaceships = spaceshipService.fetchSpaceshipsForManufacturer(searchValue);
+        case MODEL -> spaceships = spaceshipService.fetchSpaceshipsForModel(searchValue);
+      }
+      
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
+    
+    return spaceships;
   }
 }
