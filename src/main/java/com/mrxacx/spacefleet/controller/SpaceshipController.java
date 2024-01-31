@@ -55,4 +55,14 @@ public class SpaceshipController {
     
     return spaceships;
   }
+  
+  @PatchMapping("/{id}")
+  public Spaceship updateSpaceship(@PathVariable("id") String spaceship, @RequestBody SpaceshipDTO spaceshipDTO) {
+    return spaceshipService.updateSpaceship(UUID.fromString(spaceship), spaceshipDTO);
+  }
+  
+  @DeleteMapping("/{id}")
+  public void removeSpaceship(@PathVariable("id") String spaceship) {
+    spaceshipService.removeSpaceship(UUID.fromString(spaceship));
+  }
 }

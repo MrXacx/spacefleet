@@ -1,5 +1,7 @@
 package com.mrxacx.spacefleet.service.impl;
 
+import com.mrxacx.spacefleet.controller.dto.impl.RepairDTO;
+import com.mrxacx.spacefleet.controller.dto.impl.SpaceshipDTO;
 import com.mrxacx.spacefleet.exception.UnexpectedDBResponseException;
 import com.mrxacx.spacefleet.model.Maintenance;
 import com.mrxacx.spacefleet.model.Repair;
@@ -7,7 +9,6 @@ import com.mrxacx.spacefleet.model.Spaceship;
 import com.mrxacx.spacefleet.repository.IMaintenanceRepository;
 import com.mrxacx.spacefleet.repository.IRepairRepository;
 import com.mrxacx.spacefleet.repository.ISpaceshipRepository;
-import com.mrxacx.spacefleet.controller.dto.impl.RepairDTO;
 import com.mrxacx.spacefleet.service.ISpaceshipService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -55,6 +56,34 @@ public class SpaceshipService implements ISpaceshipService {
     return spaceshipRepository.findByManufacturer(manufacturer);
   }
   
+  /**
+   * @param spaceshipId
+   * @param spaceshipDTO
+   * @return
+   */
+  @Override
+  public Spaceship updateSpaceship(UUID spaceshipId, SpaceshipDTO spaceshipDTO) {
+    Spaceship spaceship = fetchSpaceship(spaceshipId);
+    
+    spaceship.setCrew(spaceshipDTO.getCrew());
+    spaceship.setLength(spaceshipDTO.getLength());
+    spaceship.setHyperdriveRating(spaceshipDTO.getHyperdrive_rating());
+    spaceship.setCargoCapacity(spaceshipDTO.getCargo_capacity());
+    spaceship.setCost(spaceshipDTO.getCost_in_credits());
+    
+    return spaceshipRepository.save(spaceship);
+  }
+  
+  /**
+   * @param spaceshipId
+   */
+  @Override
+  public void removeSpaceship(UUID spaceshipId) {
+    spaceshipRepository.delete(
+        fetchSpaceship(spaceshipId)
+    );
+  }
+  
   @Override
   public Repair recordSpaceshipRepair(RepairDTO repairDTO) {
     return repairRepository
@@ -70,7 +99,7 @@ public class SpaceshipService implements ISpaceshipService {
   public Repair fetchSpaceshipRepair(UUID repairId) {
     return repairRepository
         .findById(repairId)
-        .orElseThrow();
+        .orElseThrow(() -> new UnexpectedDBResponseException("Espaçonave não localizada."));
   }
   
   @Override

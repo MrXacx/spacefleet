@@ -1,9 +1,10 @@
 package com.mrxacx.spacefleet.service;
 
+import com.mrxacx.spacefleet.controller.dto.impl.RepairDTO;
+import com.mrxacx.spacefleet.controller.dto.impl.SpaceshipDTO;
 import com.mrxacx.spacefleet.model.Maintenance;
 import com.mrxacx.spacefleet.model.Repair;
 import com.mrxacx.spacefleet.model.Spaceship;
-import com.mrxacx.spacefleet.controller.dto.impl.RepairDTO;
 
 import java.util.List;
 import java.util.UUID;
@@ -22,6 +23,10 @@ public interface ISpaceshipService {
   List<Spaceship> fetchSpaceshipsForModel(String model);
   
   List<Spaceship> fetchSpaceshipsForManufacturer(String manufacturer);
+  
+  Spaceship updateSpaceship(UUID spaceshipId, SpaceshipDTO spaceshipDTO);
+  
+  void removeSpaceship(UUID spaceshipId);
   
   Repair recordSpaceshipRepair(RepairDTO repairDTO);
   
