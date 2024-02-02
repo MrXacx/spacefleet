@@ -14,26 +14,27 @@ import java.util.UUID;
  * @author ariel
  * @since 1.0
  */
+
 public interface ISpaceshipService {
-  Spaceship recordSpaceship(String model);
+  Spaceship record(String model);
   
-  Spaceship fetchSpaceship(UUID spaceshipId);
+  Spaceship fetch(UUID spaceshipId);
   
-  List<Spaceship> fetchSpaceshipsForName(String name);
+  List<Spaceship> fetchForName(String name);
   
-  List<Spaceship> fetchSpaceshipsForModel(String model);
+  List<Spaceship> fetchForModel(String model);
   
-  List<Spaceship> fetchSpaceshipsForManufacturer(String manufacturer);
+  List<Spaceship> fetchForManufacturer(String manufacturer);
   
-  Spaceship updateSpaceship(UUID spaceshipId, SpaceshipDTO spaceshipDTO);
+  Spaceship update(UUID spaceshipId, SpaceshipDTO spaceshipDTO);
   
-  void removeSpaceship(UUID spaceshipId);
+  void remove(UUID spaceshipId);
   
-  Repair recordSpaceshipRepair(RepairDTO repairDTO);
+  Repair recordRepair(RepairDTO repairDTO);
   
-  Repair fetchSpaceshipRepair(UUID repairId);
+  Repair fetchRepair(UUID repairId);
   
-  Repair finishSpaceshipRepair(UUID repairId);
+  Repair finishRepair(UUID repairId);
   
-  Maintenance recordSpaceshipMaintenance(MaintenanceDTO maintenanceDTO);
+  Maintenance recordMaintenance(MaintenanceDTO maintenanceDTO);
 }

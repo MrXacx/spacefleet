@@ -24,7 +24,7 @@ public class SpaceshipController {
   public Spaceship fetchSpaceship(@PathVariable("id") String id) {
     try {
       return spaceshipService
-          .fetchSpaceship(
+          .fetch(
               UUID.fromString(id)
           );
     } catch (Exception e) {
@@ -37,7 +37,7 @@ public class SpaceshipController {
   public Spaceship recordSpaceship(@RequestBody SpaceshipDTO spaceshipDTO) {
     try {
       return spaceshipService
-          .recordSpaceship(spaceshipDTO.getModel());
+          .record(spaceshipDTO.getModel());
     } catch (Exception e) {
       System.out.println(e.getMessage());
       return null;
@@ -49,9 +49,9 @@ public class SpaceshipController {
     List<Spaceship> spaceships = null;
     try {
       switch (SearchSpaceshipParam.valueOf(searchParam.toUpperCase())) { // Select the correct search service
-        case NAME -> spaceships = spaceshipService.fetchSpaceshipsForName(searchValue);
-        case MANUFACTURER -> spaceships = spaceshipService.fetchSpaceshipsForManufacturer(searchValue);
-        case MODEL -> spaceships = spaceshipService.fetchSpaceshipsForModel(searchValue);
+        case NAME -> spaceships = spaceshipService.fetchForName(searchValue);
+        case MANUFACTURER -> spaceships = spaceshipService.fetchForManufacturer(searchValue);
+        case MODEL -> spaceships = spaceshipService.fetchForModel(searchValue);
       }
       
     } catch (Exception e) {
@@ -63,26 +63,26 @@ public class SpaceshipController {
   
   @PatchMapping("/{id}")
   public Spaceship updateSpaceship(@PathVariable("id") String spaceship, @RequestBody SpaceshipDTO spaceshipDTO) {
-    return spaceshipService.updateSpaceship(UUID.fromString(spaceship), spaceshipDTO);
+    return spaceshipService.update(UUID.fromString(spaceship), spaceshipDTO);
   }
   
   @DeleteMapping("/{id}")
   public void removeSpaceship(@PathVariable("id") String spaceship) {
-    spaceshipService.removeSpaceship(UUID.fromString(spaceship));
+    spaceshipService.remove(UUID.fromString(spaceship));
   }
   
   @PostMapping("/maintenance")
   public Maintenance recordMaintenance(@RequestBody MaintenanceDTO maintenanceDTO) {
-    return spaceshipService.recordSpaceshipMaintenance(maintenanceDTO);
+    return spaceshipService.recordMaintenance(maintenanceDTO);
   }
   
   @PostMapping("/repair")
   public Repair recordRepair(@RequestBody RepairDTO repairDTO) {
-    return spaceshipService.recordSpaceshipRepair(repairDTO);
+    return spaceshipService.recordRepair(repairDTO);
   }
   
   @PatchMapping("/repair")
   public Repair finishRepair(@RequestBody RepairDTO repairDTO) {
-    return spaceshipService.finishSpaceshipRepair(repairDTO.getId());
+    return spaceshipService.finishRepair(repairDTO.getId());
   }
 }
