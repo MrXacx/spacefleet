@@ -5,10 +5,12 @@ import com.mrxacx.spacefleet.controller.dto.IModelDTO;
 import com.mrxacx.spacefleet.controller.dto.ParserDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.Arrays;
 
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @Data
 @NoArgsConstructor
