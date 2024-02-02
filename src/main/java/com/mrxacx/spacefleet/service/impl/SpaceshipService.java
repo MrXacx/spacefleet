@@ -25,7 +25,6 @@ import java.util.function.Consumer;
 @Service
 @RequiredArgsConstructor
 public class SpaceshipService implements ISpaceshipService {
-  
   final private ISpaceshipRepository spaceshipRepository;
   final private IMaintenanceRepository maintenanceRepository;
   final private IRepairRepository repairRepository;
@@ -78,21 +77,19 @@ public class SpaceshipService implements ISpaceshipService {
   
   @Override
   public void removeSpaceship(UUID spaceshipId) {
-    spaceshipRepository.delete(
-        fetchSpaceship(spaceshipId)
-    );
+    spaceshipRepository.delete(fetchSpaceship(spaceshipId));
   }
   
   @Override
   public Repair recordSpaceshipRepair(RepairDTO repairDTO) {
-    return repairRepository.save(Repair
+    final Spaceship spaceship = fetchSpaceship(repairDTO.getSpaceshipId());
+    final Repair repair = Repair
         .builder()
-        .spaceship(
-            fetchSpaceship(repairDTO.getSpaceshipId())
-        )
+        .spaceship(spaceship)
         .fault(repairDTO.getFaults())
-        .build()
-    );
+        .build();
+    spaceship.getRepairs().add(repair);
+    return repairRepository.save(repair);
   }
   
   @Override
@@ -117,15 +114,13 @@ public class SpaceshipService implements ISpaceshipService {
   
   @Override
   public Maintenance recordSpaceshipMaintenance(MaintenanceDTO maintenanceDTO) {
-    return maintenanceRepository
-        .save(
-            Maintenance
-                .builder()
-                .spaceship(
-                    fetchSpaceship(maintenanceDTO.getSpaceshipId())
-                )
-                .correctionPercentage(maintenanceDTO.getCorrectionPercentage())
-                .build()
-        );
+    final Spaceship spaceship = fetchSpaceship(maintenanceDTO.getSpaceshipId());
+    final Maintenance maintenance = Maintenance
+        .builder()
+        .spaceship(spaceship)
+        .correctionPercentage(maintenanceDTO.getCorrectionPercentage())
+        .build();
+    spaceship.getMaintenances().add(maintenance);
+    return maintenanceRepository.save(maintenance);
   }
 }
