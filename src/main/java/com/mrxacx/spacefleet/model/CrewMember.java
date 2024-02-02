@@ -1,5 +1,6 @@
 package com.mrxacx.spacefleet.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,6 +17,7 @@ import java.util.UUID;
 @Data
 @Entity
 @NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class CrewMember implements IModel {
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
