@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -13,5 +14,7 @@ import java.util.UUID;
 public class RepairDTO implements IModelDTO {
   private UUID id;
   private UUID spaceshipId;
-  private String fault;
+  private List<String> faults;
+  
+  public String getFaults(){ return String.join(", ", faults);}
 }

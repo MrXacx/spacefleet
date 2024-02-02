@@ -89,7 +89,7 @@ public class SpaceshipService implements ISpaceshipService {
                         repairDTO.getSpaceshipId()
                     )
                 )
-                .fault(repairDTO.getFault())
+                .fault(repairDTO.getFaults())
                 .build()
         );
   }
