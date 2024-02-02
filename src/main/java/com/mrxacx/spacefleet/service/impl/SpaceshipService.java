@@ -13,9 +13,9 @@ import com.mrxacx.spacefleet.repository.ISpaceshipRepository;
 import com.mrxacx.spacefleet.service.ISpaceshipService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 /**
  * @author ariel
@@ -57,15 +57,17 @@ public class SpaceshipService implements ISpaceshipService {
     return spaceshipRepository.findByManufacturer(manufacturer);
   }
   
+  private <T extends Number> void execIfPositive(Consumer<T> setterConsumer, T value){
+    if(value != null && value.doubleValue() > 0){ setterConsumer.accept(value); }
+  }
   @Override
   public Spaceship updateSpaceship(UUID spaceshipId, SpaceshipDTO spaceshipDTO) {
     Spaceship spaceship = fetchSpaceship(spaceshipId);
-    
-    spaceship.setCrew(spaceshipDTO.getCrew());
-    spaceship.setLength(spaceshipDTO.getLength());
-    spaceship.setHyperdriveRating(spaceshipDTO.getHyperdrive_rating());
-    spaceship.setCargoCapacity(spaceshipDTO.getCargo_capacity());
-    spaceship.setCost(spaceshipDTO.getCost_in_credits());
+    execIfPositive(spaceship::setCrew, spaceshipDTO.getCrew());
+    execIfPositive(spaceship::setLength, spaceshipDTO.getLength());
+    execIfPositive(spaceship::setHyperdriveRating, spaceshipDTO.getHyperdrive_rating());
+    execIfPositive(spaceship::setCargoCapacity, spaceshipDTO.getCargo_capacity());
+    execIfPositive(spaceship::setCost, spaceshipDTO.getCost_in_credits());
     
     return spaceshipRepository.save(spaceship);
   }
@@ -96,7 +98,7 @@ public class SpaceshipService implements ISpaceshipService {
   public Repair fetchSpaceshipRepair(UUID repairId) {
     return repairRepository
         .findById(repairId)
-        .orElseThrow(() -> new UnexpectedDBResponseException("Espaçonave não localizada."));
+        .orElseThrow(() -> new UnexpectedDBResponseException("Reparo não localizado."));
   }
   
   @Override
@@ -123,6 +125,7 @@ public class SpaceshipService implements ISpaceshipService {
                         maintenanceDTO.getSpaceshipId()
                     )
                 )
+                .correctionPercentage(maintenanceDTO.getCorrectionPercentage())
                 .build()
         );
   }
