@@ -6,6 +6,7 @@ import com.mrxacx.spacefleet.controller.dto.ParserDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.util.Arrays;
 
 @AllArgsConstructor
@@ -22,10 +23,20 @@ public class SpaceshipDTO extends ParserDTO implements IModelDTO {
   private Long passengers;
   private Double cargo_capacity;
   private Float hyperdrive_rating;
-  public void setCrew(String crew){
+  
+  public void setCrew(String crew) {
     this.crew = parseStringAttributeToLong(Arrays.stream(crew.split("/(-)/")).toList().getLast());
   }
-  public void setPassengers(String passengers){ this.passengers = passengers.equals("n/a") ? 0 : parseStringAttributeToLong(passengers); }
-  public void setLength(String length){ this.length = parseStringAttributeToDouble(length); }
-  public void setCargo_capacity(String cargoCapacity){ this.cargo_capacity = parseStringAttributeToDouble(cargoCapacity); }
+  
+  public void setPassengers(String passengers) {
+    this.passengers = passengers.equals("n/a") ? 0 : parseStringAttributeToLong(passengers);
   }
+  
+  public void setLength(String length) {
+    this.length = parseStringAttributeToDouble(length);
+  }
+  
+  public void setCargo_capacity(String cargoCapacity) {
+    this.cargo_capacity = parseStringAttributeToDouble(cargoCapacity);
+  }
+}

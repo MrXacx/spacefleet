@@ -16,5 +16,7 @@ public class RepairDTO implements IModelDTO {
   private UUID spaceshipId;
   private List<String> faults;
   
-  public String getFaults(){ return String.join(", ", faults);}
+  public String getFaults() {
+    return String.join(", ", faults);
+  }
 }

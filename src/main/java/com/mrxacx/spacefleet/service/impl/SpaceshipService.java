@@ -13,6 +13,7 @@ import com.mrxacx.spacefleet.repository.ISpaceshipRepository;
 import com.mrxacx.spacefleet.service.ISpaceshipService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
@@ -57,9 +58,12 @@ public class SpaceshipService implements ISpaceshipService {
     return spaceshipRepository.findByManufacturer(manufacturer);
   }
   
-  private <T extends Number> void execIfPositive(Consumer<T> setterConsumer, T value){
-    if(value != null && value.doubleValue() > 0){ setterConsumer.accept(value); }
+  private <T extends Number> void execIfPositive(Consumer<T> setterConsumer, T value) {
+    if (value != null && value.doubleValue() > 0) {
+      setterConsumer.accept(value);
+    }
   }
+  
   @Override
   public Spaceship updateSpaceship(UUID spaceshipId, SpaceshipDTO spaceshipDTO) {
     Spaceship spaceship = fetchSpaceship(spaceshipId);

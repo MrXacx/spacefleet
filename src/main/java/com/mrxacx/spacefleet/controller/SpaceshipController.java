@@ -37,7 +37,7 @@ public class SpaceshipController {
   public Spaceship recordSpaceship(@RequestBody SpaceshipDTO spaceshipDTO) {
     try {
       return spaceshipService
-        .recordSpaceship(spaceshipDTO.getModel());
+          .recordSpaceship(spaceshipDTO.getModel());
     } catch (Exception e) {
       System.out.println(e.getMessage());
       return null;
@@ -45,10 +45,10 @@ public class SpaceshipController {
   }
   
   @GetMapping("/search/{method}")
-  public List<Spaceship>  fetchSpaceships(@PathVariable("method") String searchParam, @RequestParam("w") String searchValue){
+  public List<Spaceship> fetchSpaceships(@PathVariable("method") String searchParam, @RequestParam("w") String searchValue) {
     List<Spaceship> spaceships = null;
     try {
-      switch (SearchSpaceshipParam.valueOf(searchParam.toUpperCase())){ // Select the correct search service
+      switch (SearchSpaceshipParam.valueOf(searchParam.toUpperCase())) { // Select the correct search service
         case NAME -> spaceships = spaceshipService.fetchSpaceshipsForName(searchValue);
         case MANUFACTURER -> spaceships = spaceshipService.fetchSpaceshipsForManufacturer(searchValue);
         case MODEL -> spaceships = spaceshipService.fetchSpaceshipsForModel(searchValue);
