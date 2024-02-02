@@ -81,17 +81,14 @@ public class SpaceshipService implements ISpaceshipService {
   
   @Override
   public Repair recordSpaceshipRepair(RepairDTO repairDTO) {
-    return repairRepository
-        .save(
-            Repair.builder()
-                .spaceship(
-                    fetchSpaceship(
-                        repairDTO.getSpaceshipId()
-                    )
-                )
-                .fault(repairDTO.getFaults())
-                .build()
-        );
+    return repairRepository.save(Repair
+        .builder()
+        .spaceship(
+            fetchSpaceship(repairDTO.getSpaceshipId())
+        )
+        .fault(repairDTO.getFaults())
+        .build()
+    );
   }
   
   @Override
@@ -121,9 +118,7 @@ public class SpaceshipService implements ISpaceshipService {
             Maintenance
                 .builder()
                 .spaceship(
-                    fetchSpaceship(
-                        maintenanceDTO.getSpaceshipId()
-                    )
+                    fetchSpaceship(maintenanceDTO.getSpaceshipId())
                 )
                 .correctionPercentage(maintenanceDTO.getCorrectionPercentage())
                 .build()

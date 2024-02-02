@@ -1,5 +1,6 @@
 package com.mrxacx.spacefleet.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -21,7 +22,8 @@ public class Journey implements IModel {
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
   protected UUID id;
-  @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @ManyToOne(optional = false, fetch = FetchType.LAZY)
+  @JsonIgnore
   private Spaceship spaceship;
   private Date date;
   private Date duration;
