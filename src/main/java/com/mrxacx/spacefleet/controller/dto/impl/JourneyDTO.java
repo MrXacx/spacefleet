@@ -12,7 +12,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 public class JourneyDTO implements IModelDTO {
-  private UUID spaceshipiId;
+  private UUID spaceshipId;
   private List<UUID> crew;
   private String goal;
 }
