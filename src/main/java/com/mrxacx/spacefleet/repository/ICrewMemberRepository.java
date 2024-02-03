@@ -7,5 +7,5 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ICrewMemberRepository extends JpaRepository<CrewMember, UUID> {
-  List<CrewMember> findByOrderBySeatNumberAsc();
+  List<CrewMember> findByOrderByNameAsc();
 }

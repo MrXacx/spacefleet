@@ -21,7 +21,7 @@ public class JourneyService implements IJourneyService {
   
   final private SpaceshipService spaceshipService;
   final private IJourneyRepository journeyRepository;
-  final private ICrewMemberRepository crewMemberRepository;
+  final private CrewService crewService;
   
   @Override
   public Journey record(JourneyDTO journeyDTO) {
@@ -30,11 +30,7 @@ public class JourneyService implements IJourneyService {
     final List<CrewMember> crew = journeyDTO
         .getCrew()
         .stream()
-        .map((crewMemberId) -> crewMemberRepository // fetch all crew
-            .findById(crewMemberId)
-            .orElseThrow(() ->
-                new UnexpectedDBResponseException("Tripulante desconhecido.") // throw if any crew member is not found
-            ))
+        .map(crewService::fetch) // fetch all crew members
         .toList();
     
     return journeyRepository.save(
