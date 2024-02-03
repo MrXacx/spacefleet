@@ -8,8 +8,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,8 +27,8 @@ public class Journey implements IModel {
   @JsonIgnore
   private Spaceship spaceship;
   @Builder.Default
-  private Date date = new Date();
-  private Date duration;
+  private LocalDate date = LocalDate.now();
+  private Long durationInMonths;
   @ManyToMany
   @Builder.Default
   private List<CrewMember> crew = new ArrayList<>();
