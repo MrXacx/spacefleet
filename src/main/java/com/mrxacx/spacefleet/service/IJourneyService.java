@@ -10,6 +10,6 @@ public interface IJourneyService {
   
   Journey fetch(UUID journeyId);
   
-  Journey finishJourney(UUID journeyId);
+  Journey finish(UUID journeyId);
   
 }
